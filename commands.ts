@@ -43,3 +43,10 @@ Cypress.Commands.add('clickButton', (buttonName) => {
 Cypress.Commands.add('clickLink', (linkName) => {
 	cy.get('a').contains(linkName).click()
 })
+
+Cypress.Commands.add('login', (user) => {
+	cy.get('input[id = "username"]').type(user.username)
+	cy.get('input[id = "password" ]').type(user.password)
+	cy.get('button[id = "submit"]').click()
+	
+})

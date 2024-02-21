@@ -71,6 +71,14 @@ cy.request("DELETE", "url") => send a delete request
 cy.request("POST", "url", {field : "fieldInput"}).then (response) => {} )=> Send a POST with a json body
 
 cy.request({json Body}).then (response) => {} )=> Send a POST with a json body
+cy.request({
+	method:'',
+	url: '',
+	body: {
+		key:",
+		
+	}
+})
 
 
 cy.contains("content") => Finds an element containing the specified text content. Gets by text
@@ -152,6 +160,7 @@ cy.task() - to run code in Node
 cy.session(id, setup) => caches
 cy.session(abcd, () =>{})
 
+
 	
 const { defineConfig } = require('cypress')
 module.exports = defineConfig({
@@ -188,7 +197,7 @@ Cypress.Commands.addAll({
 	name2(a,b){}
 }) => Object with callback functions as properties
 
-Cypress.Commands.overwrite('name', () => {})
+Cypress.Commands.overwrite('name', (orig, url, options) => {})
 
 <<Commands>>
 
@@ -197,4 +206,38 @@ Cypress.Commands.overwrite('name', () => {})
 		cy.request()
 		cy.exec()
 		cy.intercept()
+
+
+cy.intercept('url') => Spy and stub network requests and responses
+
+cy.intercept('method', 'url')
+
+cy.intercept({routeMatcher})
+cy.intercept({
+	method: '',
+	url: '',
+})
+
+cy.fixture('file with file path') => Load data in a file
+
+cy.fixture('file').then((x) => {
+	cy.intercept('method', 'url', x)
+}) => Access fixture data
+
+cy.intercept(url, staticResponse)
+
+cy.intercept(method, url, staticResponse)
+
+cy.intercept(routeMatcher, staticResponse)
+
+cy.intercept(url, routeMatcher, staticResponse)
+
+cy.readFile('filepath') => Reads and yields its content
+
+cy.readFile('file').its('key').should('assertation(eq)', '') => For json files
+
+cy.writeFile('path', 'data to write')
+
+cy.writeFile('file', {key:'value',}) => json
+
 

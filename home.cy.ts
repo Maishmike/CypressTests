@@ -30,4 +30,13 @@ describe("homepage", () => {
 		cy.contains("Comma")
 		
 	})
+	
+})
+
+describe('Testing custom commands', () => {
+	it('Logs in', () => {
+		cy.visit('https://practicetestautomation.com/practice-test-login/')
+		cy.login({username: 'student', password: 'Password123'})
+		
+	})
 })
