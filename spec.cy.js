@@ -1,4 +1,4 @@
-/*describe('My first test', () => {
+describe('My first test', () => {
   it('Does not do much', () => {
     expect(true).to.equal(false)
   })
@@ -55,4 +55,4 @@ describe("My 7th test", () => {
 		
 		cy.get(".action-email").should("have.value", "a@a.com")
 	})
-})*/
+})

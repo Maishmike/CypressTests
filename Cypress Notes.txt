@@ -1,0 +1,200 @@
+<<Cypress>>
+
+npm init -y => Initialize a new node project
+
+npm install cypress --save-dev => Install cypress as a dev dependency
+
+npx cypress open => Access cypress
+ 
+{
+  "scripts": {
+    "cypress:open": "cypress open",
+  }
+} => Add to package.json to open cypress from the project root with: npm run cypress:open
+
+
+describe("string", callback_function)
+
+it("string", callback_function) => A single test
+
+it.only("string", callback_function) => Only run this test
+
+
+describe(descriptionString, arrowFunction) => start, block
+
+it(descriptionString, arrowFunction)
+
+describe("abcd", () => {
+	it("abcd", () => {
+	cy.function() => Function to be executed
+	})
+})
+
+
+expect().to.equal() => Function to check equality
+
+expect().to.have.property("field", "fieldInput")
+
+expect().to.have.length()
+
+expect().to.eq()
+
+
+describe("", () => { 
+	before(() ={
+		tests to be run once before the first test in this describe block  
+	})
+	
+	after(() ={
+		tests to be run once after the first test in this describe block  
+	})
+	
+	beforeEach(() ={
+		tests to be run before each test in this describe block  
+	})
+	
+	afterEach(() ={
+		tests to be run after each test in this describe block  
+	})
+	
+	it("", () => {tests}) => Run tests in this
+	
+}) => Describe with pre-conditions, descriptions are optional
+
+
+cy.visit("url") => Where to execute tests, Add a timeout to tests/queries/commands after using request or use .wait()
+
+cy.request("") => Can be used to move between pages in conjunction with the current url, Talk to endpoints, GET by default
+
+cy.request("DELETE", "url") => send a delete request
+
+cy.request("POST", "url", {field : "fieldInput"}).then (response) => {} )=> Send a POST with a json body
+
+cy.request({json Body}).then (response) => {} )=> Send a POST with a json body
+
+
+cy.contains("content") => Finds an element containing the specified text content. Gets by text
+
+cy.contains(selector(p, ul, li....), content)
+
+
+.contains(/value/i) => Case insensitive comparison
+
+.then( () =>{
+} ) => Allows you to use the yielded subject in a callback function. Used when you need to manipulate values or do actions
+
+
+http://chaijs.com/api/bdd/
+
+
+.click() => Clicks an element
+
+.url() => Gets url
+
+.type('text') => Type in text into the chained element in textarea or input
+
+.eq(index) => Get an element at a specific index
+
+.first() => Get first element in a set of elements
+
+.last() => Get the last element in a set of elements
+
+.next() => Yields the element next to the one specified
+
+
+cy.get(selector) => Retrieves an element by selector, if multiple returns an array
+
+cy.get(.selector) => Retrieves an element by class
+
+cy.get(#selector) => Retrieves an element by id
+
+cy.get('selector1').within(()=> {
+	cy.get('selector') => Yields the selectors within selector1
+})
+
+cy.get(selector).as('alias');
+cy.get('@alias').assertation;
+
+cy.get('.class > selector') => Yields the selectors in the class
+
+cy.get('selector[property = "property value"]') => Get by Selector witha specific property value
+cy.get('[property = "propertyvalue"]') => Get by property only
+
+cy.get("", {timeout: x}) => Set retry time
+cy.get("", {timeout: 0}) => No retries
+
+cy.get("").type("value{enter}")
+
+cy.get().should() => Assert what is in get
+		>> .should('be.empty') => chainers
+		>> .should('be.visible')
+		>> .should('be.hidden')
+		>> .should('be.disabled')
+		>> .should('have.css', 'cssSelector') => chainers, value
+		>> .should('not.have.value', 'value')
+		>> .should('have.value', 'value')
+		>> .should('have.length', value)
+		>> .should('include', "')
+		>> .should("contain", "value")
+		>> .should("have.class", "active")
+		>> .should("have.attr", "value")
+		
+
+Cypress.Commands.add(name, callback_function) => Add a custom command
+Cypress.Commands.overwrite(name, callback_function) => Override an existing built-in cypress command	
+
+Cypress.Commands.addQuery(name, callback_function) => Add a custom query
+Cypress.Commands.overwriteQuery(name, callback_function) => Override an existing built-in cypress query
+
+cy.exec() - to run system commands
+cy.task() - to run code in Node
+
+cy.session(id, setup) => caches
+cy.session(abcd, () =>{})
+
+	
+const { defineConfig } = require('cypress')
+module.exports = defineConfig({
+  e2e: {
+    baseUrl: 'http://localhost:1234',
+  },
+}) =>.js, cy.visit("/") =>baseUrl
+
+import { defineConfig } from 'cypress'
+export default defineConfig({
+  e2e: {
+    baseUrl: 'http://localhost:1234',
+  },
+}) => .ts,  cy.visit("/") =>baseUrl
+
+
+cy.wait() => Wait for a num of seconds or wait for an aliased resource to resolve before moving once
+cy.wait(time)
+
+.and('assertation') => Add assertations
+
+cy.get('selector').find('selector2') => Yields selector2 within selector
+
+.debug() => Logs what the previous command yields, Pauses test execution allowing for use of dev_tools / console
+
+cy.log('message') => Prints a message to cypress command log
+
+Define queries in cypress/support/command.js or command.ts
+
+Cypress.Commands.add("name", (x, y) => {}) => With callback_function that receives arguments passed to the command
+
+Cypress.Commands.addAll({
+	name(x,y){},
+	name2(a,b){}
+}) => Object with callback functions as properties
+
+Cypress.Commands.overwrite('name', () => {})
+
+<<Commands>>
+
+	<<Parent Commands>> => Always begin a new chain of commands, ignores all previous yielded subjects
+		cy.visit()
+		cy.request()
+		cy.exec()
+		cy.intercept()
+
