@@ -79,7 +79,7 @@ describe('template spec', () => {
 		})
 	})
 	
-	it.only('Makes a bill request', () => {
+	it('Makes a bill request', () => {
 		cy.fixture('token.txt').then((token) => {
 			var originatorConversationId = Cypress._.random(0, 1e6);
 			cy.request({
@@ -108,6 +108,27 @@ describe('template spec', () => {
 				cy.log(response.body.message.remarks)
 			})
 		})
+	})
+	
+	it.only('Accesses the ussd via API', () => {
+		var ussd = (text) => {
+			var rand = Cypress._.random(0 - 1e6)
+			return cy.request({
+				url: 'https://ussdv2test.pesapepe.co.ke/api/v1/ussd/json-data',
+				method: 'POST',
+				body: {
+					phoneNumber: "254711593744",
+					serviceCode: "806",
+					sessionId: `${rand}`,
+					text: text
+				}
+			}).then((response) => {
+				cy.log(response.body)
+			})
+		}
+		
+		ussd()
+		//ussd('1')
 	})
 	
   
