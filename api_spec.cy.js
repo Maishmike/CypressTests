@@ -79,6 +79,36 @@ describe('template spec', () => {
 		})
 	})
 	
+	it.only('Makes a bill request', () => {
+		cy.fixture('token.txt').then((token) => {
+			var originatorConversationId = Cypress._.random(0, 1e6);
+			cy.request({
+				method: 'POST',
+				url: 'https://sandboxapi.zamupay.com/v1/bill-payments',
+				headers: {
+					Authorization : `Bearer ${token}`
+				},
+				body : {
+					serviceCode: "KE-ZUKU",
+					accountNumber: "240065",
+					transactionType: 2,
+					transactionDesc: "Bill Payment NEW",
+					originatorConversationId: originatorConversationId,
+					msisdn: "254710000000",
+					narration: "Kyle testing",
+					amount: 100,
+					customerNames: "Omega",
+					countryCode: "KE",
+					currencyCode: "KES",
+					saveBillerNumber: true,
+					callBackUrl: "https://eo2j2658kmohqiy.m.pipedream.net"
+
+				}
+			}).then((response) => {
+				cy.log(response.body.message.remarks)
+			})
+		})
+	})
 	
   
 })
