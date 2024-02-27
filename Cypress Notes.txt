@@ -1,5 +1,8 @@
 <<Cypress>>
 
+npm install => install a project
+npm run dev => run js projects
+
 npm init -y => Initialize a new node project
 
 npm install cypress --save-dev => Install cypress as a dev dependency
@@ -146,6 +149,7 @@ cy.get().should() => Assert what is in get
 		>> .should("contain", "value")
 		>> .should("have.class", "active")
 		>> .should("have.attr", "value")
+		>> .should("exist")
 		
 
 Cypress.Commands.add(name, callback_function) => Add a custom command
@@ -239,5 +243,3 @@ cy.readFile('file').its('key').should('assertation(eq)', '') => For json files
 cy.writeFile('path', 'data to write')
 
 cy.writeFile('file', {key:'value',}) => json
-
-
